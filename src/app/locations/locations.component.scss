@@ -1,0 +1,115 @@
+$top-close: -545px;
+$top-open: 0px;
+.toggle-bar-wrapper {
+    top: $top-close;
+    position: absolute;
+    z-index: 5;
+    .form-control {
+        &.ng-invalid.ng-dirty:not(:focus) {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, .25);
+            &::placeholder {
+                color: #dc3545;
+            }
+        }
+    }
+    .map-wrapper {
+        margin-top: 20px;
+        agm-map {
+            height: 300px;
+        }
+        .address {
+            padding: 0;
+            display: flex;
+            &.disabled {
+                background-color: #e9ecef;
+            }
+            input {
+                border: none;
+            }
+            button{
+                background: no-repeat;
+                border: none;
+                outline: none;
+            }
+        }
+    }
+    .form-button {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+.open-bar {
+    animation-name: openLocationBar;
+    animation-duration: 0.5s;
+    top: $top-open;
+}
+
+.close-bar {
+    animation-name: closeLoctionBar;
+    animation-duration: 0.5s;
+    top: $top-close;
+}
+
+@keyframes openLocationBar {
+    0% {
+        top: $top-close;
+    }
+    100% {
+        top: $top-open;
+    }
+}
+
+@keyframes closeLoctionBar {
+    0% {
+        top: $top-open;
+    }
+    100% {
+        top: $top-close;
+    }
+}
+
+.list-group {
+    width: 100%;
+    padding-top: 8px;
+    .location-name {
+        padding: .375rem .75rem;
+        width: 100%;
+    }
+    .list-group-item {
+        display: flex;
+        padding: 12px 0;
+        margin-bottom: 8px;
+        box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+        border-radius: 8px;
+        button {
+            margin-left: auto;
+            background: none;
+            border: none;
+            margin-left: 8px;
+            outline: none;
+            &.cancel-btn {
+                color: #dc3545;
+                margin: 0 12px;
+            }
+            &.edit-btn {
+                background-color: #ffc107;
+                border-radius: 5px;
+                margin: 0 12px;
+            }
+            &.done-btn {
+                background-color: #28a745;
+                color: #fff;
+                border-radius: 5px;
+                margin-left: 12px;
+            }
+        }
+        .form-control {
+            &:disabled {
+                background: none;
+                border: none;
+            }
+        }
+    }
+}

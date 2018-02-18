@@ -1,0 +1,14 @@
+main {
+    position: absolute;
+    overflow-y: scroll;
+    height: calc(100% - 168px);
+    width: 100%;    
+    top: 76px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+

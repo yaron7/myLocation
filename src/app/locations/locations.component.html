@@ -1,0 +1,80 @@
+<div class="toggle-bar-wrapper" 
+     [ngClass]="toggleBarClass">
+    <form [formGroup]="fg" novalidate>
+        <div class="form-group">
+            <select class="form-control"
+                    formControlName="category"
+                    (change)="selectedChange()">
+                 <!-- <option [value]="null" disabled>Select category</option> -->
+                 <option *ngFor="let c of categories;let i = index" [selected]="category.id == locationDTO.category.id" [ngValue]="c" >{{c.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="location" class="sr-only">
+                  Location Name
+            </label>
+            <input type="text" 
+                   class="form-control"
+                   placeholder="Give name to your location"
+                   id="location"
+                   autocomplete="off"
+                   [(ngModel)]="locationDTO.name"
+                   formControlName="locationName">
+        </div>
+        <div class="map-wrapper">
+            <div class="form-group form-control address" [ngClass]="{ 'disabled' : fg.get('address').disabled }">
+                <input class="form-control" 
+                       places-auto-complete 
+                       (place_changed)="placeChanged($event)" 
+                       [types]="['geocode']"
+                       formControlName="address"
+                       (click)="addressEntered(btns)">
+                       <button (click)="fg.get('address').setValue(''); isPlaceSelected = false">
+                            <i class="material-icons">cancel</i>
+                       </button>
+            </div>
+            <ngui-map [center]="this.locationDTO.address"> <!--(mapClick)="mapClick($event)"-->
+                <marker [position]="this.locationDTO.address"></marker><!--(dragend)="log($event)", draggable="true"-->
+            </ngui-map>
+        </div>
+        <div #btns>
+            <div *ngIf="formButton == 1">
+                <button type="button"
+                        class="form-button" 
+                        [disabled]="!(fg.valid && isPlaceSelected)"
+                        color="primary"
+                        mat-raised-button 
+                        (click)="addLoction()">Add MyLocation</button>
+            </div>
+            <div *ngIf="formButton == 2">
+                <button type="button"
+                        class="form-button"
+                        [disabled]="fg.invalid && this.locationDTO.address" 
+                        color="primary" 
+                        mat-raised-button 
+                        (click)="saveChanges()">Save Changes</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div>
+    <ul class="list-group list-group-flush list-items">
+        <li class="list-group-item" *ngFor="let l of locations">
+            <span class="location-name">{{l.name}}</span>
+            <button type="button" 
+                    *ngIf="isDeletableMode"
+                    class="cancel-btn" 
+                    (click)="deleteLocation(l)">
+                <i class="material-icons">cancel</i>
+            </button>
+            <button type="button" 
+                    *ngIf="isEditableMode"
+                    class="edit-btn" 
+                    (click)="editLocation(l)">
+                <i class="material-icons">edit</i>
+            </button>
+        </li>
+    </ul>
+</div>
+
+

@@ -1,0 +1,55 @@
+
+<form [formGroup]="fg" novalidate>
+    <div class="input-group toggle-bar-wrapper" 
+         [ngClass]="toggleBarClass">
+        <label for="category" class="sr-only">Add new category</label>
+        <input class="form-control" 
+               type="text" 
+               autocomplete="off" 
+               placeholder="Add Category (required)" 
+               formControlName="newCategory"
+               id="category">
+        <div class="input-group-append">
+            <button type="button"
+                    class="btn btn-info" 
+                    [disabled]="!fg.valid"
+                    type="button" 
+                    (click)="addNewCategory()">
+                <i class="material-icons">add</i>
+            </button>
+        </div>
+        <div *ngIf="isExist" class="invalid-feedback">
+            *Category alreay exist
+        </div>
+    </div>
+    <div *ngIf="categories.length" 
+         formArrayName="categoriesFA" 
+         [ngClass]="toggleBarClass"
+         class="list-wrapper">
+        <ul class="list-group list-group-flush list-items">
+            <li class="list-group-item" *ngFor="let c of categoriesFA.controls; let i=index" [formGroupName]="i">
+                <input class="form-control" 
+                       formControlName="name">
+                <button type="button" 
+                        *ngIf="isDeletableMode"
+                        class="cancel-btn" 
+                        (click)="deleteCategory(c,i)">
+                    <i class="material-icons">cancel</i>
+                </button>
+                <button type="button" 
+                        *ngIf="isEditableMode && c.disabled" 
+                        class="edit-btn" 
+                        (click)="editCategory(c)">
+                    <i class="material-icons">edit</i>
+                </button>
+                <button type="button" 
+                        *ngIf="isEditableMode && c.enabled" 
+                        class="done-btn" 
+                        (click)="editDone(c,i)">
+                    <i class="material-icons">done</i>
+                </button>
+            </li>
+        </ul>
+    </div>
+</form>
+

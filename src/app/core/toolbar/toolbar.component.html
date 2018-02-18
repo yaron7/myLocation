@@ -1,0 +1,14 @@
+<mat-toolbar color="primary" class="toolbar">
+  <mat-toolbar-row>
+    <h1 class="title">{{title}}</h1>
+    <button mat-fab color="basic" (click)="toggaleAddBar()">
+      <mat-icon class="icon" color="primary">add_circle</mat-icon>
+    </button>
+    <button mat-fab color="basic" (click)="deletableMode()" class="middle">
+      <mat-icon class="icon" color="primary">remove_circle</mat-icon>
+    </button>
+    <button mat-fab color="basic" (click)="editableMode()">
+      <mat-icon class="icon" color="primary">edit</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
